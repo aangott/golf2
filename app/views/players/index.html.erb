@@ -1,0 +1,31 @@
+
+
+<h1>Listing Players</h1>
+
+<table>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Suffix</th>
+        <th>Flight</th>
+        <th>Number</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+
+<% @players.each do |player| %>
+    <tr>
+        <td><%= player.first_name %></td>
+        <td><%= player.last_name %></td>
+        <td><%= player.suffix %></td>
+        <td><%= player.flight %></td>
+        <td><%= player.number %></td>
+        <td><%= link_to 'Edit', edit_player_path(player) %></td>
+        <td><%= link_to 'Delete', player, :confirm => 'Are you sure you want to permanently delete this player?', :method => :delete %> </td>
+    </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Player', new_player_path %>
