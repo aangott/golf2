@@ -1,0 +1,20 @@
+<h1>Listing rounds</h1>
+<table>
+    <tr>
+        <th>date</th>
+        <th>edit</th>
+        <th>delete</th>
+    </tr>
+
+<% @rounds.each do |round| %>
+    <tr>
+        <td><%= round.date %> </td>
+        <td><%= link_to 'Edit', edit_round_path(round) %></td>
+        <td>Delete link goes here</td>
+    </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Create a new round', new_round_path %>

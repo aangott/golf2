@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  value: 1
+  adjusted: 1
+  player_id: 1
+
+two:
+  value: 1
+  adjusted: 1
+  player_id: 1

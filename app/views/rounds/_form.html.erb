@@ -1,0 +1,97 @@
+<%= form_for(@round) do |round_form| %>
+    <% if @round.errors.any? %>
+        <div id='errorExplanation'>
+            <h2>
+                <%= pluralize(@round.errors.count, "error") %> 
+                prohibited this round from being saved:
+            </h2>
+            <ul>
+                <% @round.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+    <div class='field'>
+        <%= round_form.label :date %><br />
+        <%= round_form.date_select :date %>
+    </div>
+
+    <div class='field'>
+        <%= round_form.label :course %><br />
+        <%= round_form.select(:course, [['Front 9', 'Front 9'], ['Back 9', 'Back 9']]) %> 
+    </div>
+
+    <table>
+        <tr>
+            <th>Match id</th>
+            <th>Player 1</th>
+            <th>Score</th>
+            <th>Player 2</th>
+            <th>Score</th>
+        </tr>
+
+
+    <%= round_form.fields_for :matches do |matches_form| %>
+        <tr>
+            <td>bzzzt</td>
+            <td><%= matches_form.collection_select(:player1_id, 
+                                                   Player.order('number'), 
+                                                   :id, 
+                                                   :number_and_name, 
+                                                   include_blank: true) %></td>
+            
+            <%= matches_form.fields_for :score1, matches_form.object.score1 do |score1_form| %>
+                <td><%= score1_form.text_field :value %></td>
+            <% end %>
+
+            <td>Score1</td>
+            <td><%= matches_form.collection_select(:player2_id, 
+                                                   Player.order('number'), 
+                                                   :id, 
+                                                   :number_and_name, 
+                                                   include_blank: true) %></td>
+            <%= matches_form.fields_for :score2, matches_form.object.score2 do |score2_form| %>
+                <td><%= score2_form.text_field :value %></td>
+            <% end %>
+
+
+        </tr>
+    <% end %>
+
+
+
+
+
+
+<!-- 
+    <% @round.matches.each_with_index do |match, index| %>
+        <tr>
+            <td><%= index %> </td>
+            <td><%= select_tag("match[][player1_id]", 
+                               options_from_collection_for_select(Player.order('number'), 
+                                                                  :id, 
+                                                                  :number_and_name
+                                                                  ),
+
+                               include_blank: true) %></td>
+
+            <td><%= text_field_tag("match[][score1_value]", nil, size: '3') %></td>
+            <td><%= select_tag("match[][player2_id]", 
+                               options_from_collection_for_select(Player.order('number'), 
+                                                                  :id, 
+                                                                  :number_and_name
+                                                                  ), 
+                               include_blank: true) %></td>
+            <td><%= text_field_tag("match[][score2_value]", nil, size: '3') %></td>
+        </tr>
+    <% end %>
+ -->
+    </table>
+
+
+    <div class='actions'>
+        <%= round_form.submit %>
+    </div>
+<% end %>

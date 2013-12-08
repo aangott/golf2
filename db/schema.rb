@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131126200207) do
+ActiveRecord::Schema.define(:version => 20131208195123) do
+
+  create_table "matches", :force => true do |t|
+    t.integer  "round_id"
+    t.integer  "player1_id"
+    t.integer  "player2_id"
+    t.integer  "score1_id"
+    t.integer  "score2_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "players", :force => true do |t|
     t.string   "first_name"
@@ -19,6 +29,21 @@ ActiveRecord::Schema.define(:version => 20131126200207) do
     t.string   "suffix"
     t.string   "number"
     t.string   "flight"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "rounds", :force => true do |t|
+    t.date     "date"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "course"
+  end
+
+  create_table "scores", :force => true do |t|
+    t.integer  "value"
+    t.integer  "adjusted"
+    t.integer  "player_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
