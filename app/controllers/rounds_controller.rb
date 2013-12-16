@@ -11,7 +11,9 @@ class RoundsController < ApplicationController
     # create the matches that comprise the round
     4.times do
       @round.matches.build(:score1 => Score.new,
-                           :score2 => Score.new)
+                           :score2 => Score.new,
+                           :points1 => Point.new,
+                           :points2 => Point.new)
     end
   end
 
@@ -43,6 +45,8 @@ class RoundsController < ApplicationController
     @round.matches.each do |match|
       match.score1.player_id = match.player1.id
       match.score2.player_id = match.player2.id
+      match.points1.player_id = match.player1.id
+      match.points2.player_id = match.player2.id
     end
 
     if @round.update_attributes(params[:round])
@@ -51,6 +55,18 @@ class RoundsController < ApplicationController
       render :action => 'edit'
     end
   end
+
+  def destroy
+    @round = Round.find(params[:id])
+    @round.destroy
+    redirect_to rounds_path, :notice => 'Round successfully deleted.'
+  end
+
+
+
+
+
+
 
 
 end

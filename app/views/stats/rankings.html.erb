@@ -1,0 +1,32 @@
+<h1>Rankings</h1>
+
+
+<% @data.each do |flight, players| %>
+<h2>Flight: <%= flight %> </h2>
+<table>
+  <tr>
+    <th>Mate</th>
+    <th>Player #</th>
+    <th>Mates Average Score</th>
+    <th>Last Round's Score</th>
+    <th>Last Round's Points</th>
+    <th>Current Total Points</th>
+  </tr>
+
+  <% players.each do |player| %>
+
+    <tr>
+      <td><%= player.full_name %></td>
+      <td><%= player.number %></td>
+      <td>Avg score</td>
+      <td>Last score</td>
+      <td>Last points</td>
+      <td>total points</td>
+    </tr>
+
+  <% end %>
+
+
+</table>
+<% end %>
+

@@ -10,7 +10,7 @@
     <tr>
         <td><%= round.date %> </td>
         <td><%= link_to 'Edit', edit_round_path(round) %></td>
-        <td>Delete link goes here</td>
+        <td><%= link_to 'Delete', round, :confirm => 'Are you sure you want to permanently delete this round?', :method => :delete %></td>
     </tr>
 <% end %>
 </table>

@@ -25,17 +25,19 @@
 
     <table>
         <tr>
-            <th>Match id</th>
             <th>Player 1</th>
             <th>Score</th>
+            <th>Adjusted Score</th>
+            <th>Points</th>
             <th>Player 2</th>
             <th>Score</th>
+            <th>Adjusted Score</th>
+            <th>Points</th>
         </tr>
 
 
     <%= round_form.fields_for :matches do |matches_form| %>
         <tr>
-            <td>bzzzt</td>
             <td><%= matches_form.collection_select(:player1_id, 
                                                    Player.order('number'), 
                                                    :id, 
@@ -44,9 +46,12 @@
             
             <%= matches_form.fields_for :score1, matches_form.object.score1 do |score1_form| %>
                 <td><%= score1_form.text_field :value %></td>
+                <td><%= score1_form.text_field :adjusted %></td>
+            <% end %>
+            <%= matches_form.fields_for :points1, matches_form.object.points1 do |points1_form| %>
+                <td><%= points1_form.text_field :value %></td>
             <% end %>
 
-            <td>Score1</td>
             <td><%= matches_form.collection_select(:player2_id, 
                                                    Player.order('number'), 
                                                    :id, 
@@ -54,40 +59,13 @@
                                                    include_blank: true) %></td>
             <%= matches_form.fields_for :score2, matches_form.object.score2 do |score2_form| %>
                 <td><%= score2_form.text_field :value %></td>
+                <td><%= score2_form.text_field :adjusted %></td>
             <% end %>
-
-
+            <%= matches_form.fields_for :points2, matches_form.object.points2 do |points2_form| %>
+                <td><%= points2_form.text_field :value %></td>
+            <% end %>
         </tr>
     <% end %>
-
-
-
-
-
-
-<!-- 
-    <% @round.matches.each_with_index do |match, index| %>
-        <tr>
-            <td><%= index %> </td>
-            <td><%= select_tag("match[][player1_id]", 
-                               options_from_collection_for_select(Player.order('number'), 
-                                                                  :id, 
-                                                                  :number_and_name
-                                                                  ),
-
-                               include_blank: true) %></td>
-
-            <td><%= text_field_tag("match[][score1_value]", nil, size: '3') %></td>
-            <td><%= select_tag("match[][player2_id]", 
-                               options_from_collection_for_select(Player.order('number'), 
-                                                                  :id, 
-                                                                  :number_and_name
-                                                                  ), 
-                               include_blank: true) %></td>
-            <td><%= text_field_tag("match[][score2_value]", nil, size: '3') %></td>
-        </tr>
-    <% end %>
- -->
     </table>
 
 

@@ -5,14 +5,26 @@ class Player < ActiveRecord::Base
   validates :number, :presence => true
   validates :flight, :presence => true
 
-  has_and_belongs_to_many :matches
+  has_many :scores
+  has_many :points
+
+  has_many :matches1, :class_name => "Match", :foreign_key => :player1_id
+  has_many :matches2, :class_name => "Match", :foreign_key => :player2_id
+
+  def matches
+    matches1 + matches2
+  end
 
   def number_and_name
     "#{number} - #{first_name} #{last_name} #{suffix}"
   end
 
-  # later, when other models are created:
-  # has_many :scores
-  # has_many :points
+  def full_name
+    "#{first_name} #{last_name} #{suffix}"
+  end
 
+
+
+
+  
 end

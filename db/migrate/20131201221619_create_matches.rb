@@ -7,6 +7,8 @@ class CreateMatches < ActiveRecord::Migration
       t.references :player2
       t.references :score1
       t.references :score2
+      t.references :points1
+      t.references :points2
 
       t.timestamps
     end
