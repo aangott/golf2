@@ -1,0 +1,15 @@
+style the home page
+  // left off trying to put icons next to navbar links
+  // why do icons make header taller? 
+
+  make nav links active
+
+
+
+
+  
+
+
+
+questions for john:
+  which city is the league based in?

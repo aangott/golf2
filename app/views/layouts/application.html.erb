@@ -6,16 +6,46 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
+
+
 <body>
+  <div id='main' class='container panel panel-default'>
+    <nav class='navbar navbar-default' role='navigation'>
+      <div class='navbar-header'>
+        <%= link_to root_url, :class => 'navbar-brand' do %> 
+          Mates Golf League <span class='small'>Detroit, MI</span>
+        <% end %>
+      </div>
+      <ul class='nav navbar-nav navbar-right'>
+        <li class='major-nav'>
+          <%= link_to :controller => 'stats', :action => 'rankings' do %>
+            <span id='trophy-glyph'></span>Rankings
+          <% end %>
+        </li>
+        <li class='major-nav'>
+          <%= link_to :controller => 'stats', :action => 'history' do %>
+            <span id='golf-glyph'></span>Score History
+          <% end %>
+        </li>
+        <li><a href='#'>Admin Login</a></li>
+      </ul>
+    </nav>
 
-<% if notice %>
-  <div class='alert alert-info'>
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <%= notice %>
+
+
+
+
+
+    <% if notice %>
+      <div class='alert alert-info'>
+        <button type='button' class='close' data-dismiss='alert'>&times;</button>
+        <%= notice %>
+      </div>
+    <% end %>
+
+    <%= yield %>
   </div>
-<% end %>
-
-<%= yield %>
-
 </body>
+
+
 </html>

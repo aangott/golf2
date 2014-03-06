@@ -18,4 +18,15 @@ class StatsController < ApplicationController
 
   end
 
+
+
+
+  def history 
+
+  end
+  
+
+
+
+
 end

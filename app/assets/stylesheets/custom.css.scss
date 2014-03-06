@@ -1,1 +1,69 @@
 @import "bootstrap";
+@import url(http://fonts.googleapis.com/css?family=Carrois+Gothic);
+
+body {
+  background-color: #9C9C9C; 
+  background-image: image-url("argyle.jpg")
+}
+
+#main {
+  width: 1000px;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  padding: 0;
+}
+
+.navbar {
+  width: 100%;
+  font-family: 'Carrois Gothic', sans-serif;
+
+}
+
+.navbar-default .navbar-brand {
+  padding: 10px;
+  font-size: 28px;
+  line-height: 28px;
+  height: 28px;
+  color: #333;
+}
+
+.navbar-brand .small {
+  font-size: 20px;
+  color: #777;
+}
+
+.major-nav {
+  font-size: 20px;
+}
+
+li.major-nav a {
+  padding: 7px;
+  border: 1px solid #e7e7e7;
+  border-radius: 5px;
+  margin: 7px;
+}
+
+.navbar-default li.major-nav a:hover {
+  background-color: #b8b8b8;
+}
+
+#trophy-glyph, #golf-glyph {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 14px;
+  margin-right: 3px;
+}
+
+#trophy-glyph {
+  background-image: image-url("glyphicons_074_cup.png");
+}
+
+#golf-glyph {
+  background-image: image-url("glyphicons_402_golf_course.png");
+}
+
+
+
