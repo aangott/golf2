@@ -16,7 +16,7 @@ body {
 .navbar {
   width: 100%;
   font-family: 'Carrois Gothic', sans-serif;
-
+  margin-bottom: 10px;
 }
 
 .navbar-default .navbar-brand {
@@ -64,6 +64,20 @@ li.major-nav a {
 #golf-glyph {
   background-image: image-url("glyphicons_402_golf_course.png");
 }
+
+.alert {
+  margin: 0 10px 10px 10px;
+}
+
+
+
+
+
+
+
+
+
+
 
 
 

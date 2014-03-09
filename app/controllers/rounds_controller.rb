@@ -1,5 +1,5 @@
 class RoundsController < ApplicationController
-
+  before_filter :authenticate, :except => [:index]
 
   def index
     @rounds = Round.all
@@ -27,7 +27,8 @@ class RoundsController < ApplicationController
     end
 
     if @round.save
-      redirect_to rounds_path, :notice => 'New round successfully created.'
+      flash[:success] = 'New round successfully created.'
+      redirect_to rounds_path
     else
       render :action => 'new'
     end
@@ -50,7 +51,8 @@ class RoundsController < ApplicationController
     end
 
     if @round.update_attributes(params[:round])
-      redirect_to rounds_path, :notice => 'Round information successfully updated.'
+      flash[:success] = 'Round information successfully updated.'
+      redirect_to rounds_path
     else
       render :action => 'edit'
     end
@@ -60,14 +62,8 @@ class RoundsController < ApplicationController
   def destroy
     @round = Round.find(params[:id])
     @round.destroy
-    redirect_to rounds_path, :notice => 'Round successfully deleted.'
+    flash[:success] = 'Round successfully deleted.'
+    redirect_to rounds_path
   end
-
-
-
-
-
-
-
 
 end

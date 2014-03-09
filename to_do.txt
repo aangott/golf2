@@ -1,15 +1,52 @@
-style the home page
-  // left off trying to put icons next to navbar links
-  // why do icons make header taller? 
+// make admin login link active
+// style the login page
+// get logging-in working
+// style alert/notice box
+// restrict actions to logged-in admin only
+// conditional styling of header for login/logout link
 
-  make nav links active
+
+style homepage
+
+contidtionally add admin content to homepage
+  delete admin/actions controller
 
 
 
 
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+set a minimum content area height
+
+
+add all players, back scores to db seeds
+
+
+
+
+
+
 
 
 
 questions for john:
   which city is the league based in?
+
+  would the guys like me to use last initials only?
+
+
+
+login:
+  username: wally
+  password: argylesocks

@@ -1,5 +1,5 @@
 class PlayersController < ApplicationController
-
+  before_filter :authenticate
 
   def index
     @players = Player.all
@@ -14,7 +14,8 @@ class PlayersController < ApplicationController
   def create
     @player = Player.new(params[:player])
     if @player.save
-      redirect_to players_path, :notice => 'Player successfully added.'
+      flash[:success] = 'Player successfully added.'
+      redirect_to players_path
     else
       render :action => 'new'
     end
@@ -29,7 +30,8 @@ class PlayersController < ApplicationController
   def update
     @player = Player.find(params[:id])
     if @player.update_attributes(params[:player])
-      redirect_to players_path, :notice => 'Player information successfully updated.'
+      flash[:success] = 'Player information successfully updated.'
+      redirect_to players_path
     else
       render :action => 'edit'
     end   
@@ -39,7 +41,8 @@ class PlayersController < ApplicationController
   def destroy
     @player = Player.find(params[:id])
     @player.destroy
-    redirect_to players_path, :notice => 'Player successfully deleted.'
+    flash[:success] = 'Player successfully deleted.'
+    redirect_to players_path
   end
 
 
