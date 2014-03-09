@@ -1,20 +1,31 @@
-<h1>Listing rounds</h1>
-<table>
-    <tr>
-        <th>date</th>
-        <th>edit</th>
-        <th>delete</th>
-    </tr>
+<div id='rounds-index'>
+    <h1>2014 Season Schedule</h1>
+    <table class='table table-striped'>
+        <tr>
+            <th>Date</th>
+            <th>Course</th>
+            <th></th> 
+            <% if logged_in? %>
+                <th></th>
+                <th></th>
+            <% end %>
+        </tr>
 
-<% @rounds.each do |round| %>
-    <tr>
-        <td><%= round.date %> </td>
-        <td><%= link_to 'Edit', edit_round_path(round) %></td>
-        <td><%= link_to 'Delete', round, :confirm => 'Are you sure you want to permanently delete this round?', :method => :delete %></td>
-    </tr>
-<% end %>
-</table>
+    <% @rounds.each do |round| %>
+        <tr>
+            <td><%= round.date.to_formatted_s(:long) %></td>
+            <td><%= round.course %></td>
+            <td><%= link_to 'View Details', round_path(round) %>
+            <% if logged_in? %>
+                <td><%= link_to 'Edit', edit_round_path(round) %></td>
+                <td><%= link_to 'Delete', round, :confirm => 'Are you sure you want to permanently delete this round?', :method => :delete %></td>
+            <% end %>
+        </tr>
+    <% end %>
+    </table>
 
-<br />
-
-<%= link_to 'Create a new round', new_round_path %>
+    <br />
+    <% if logged_in? %>
+        <%= link_to 'Create a new round', new_round_path %>
+    <% end %>
+</div>

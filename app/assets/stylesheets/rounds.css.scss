@@ -1,3 +1,20 @@
 // Place all the styles related to the Rounds controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#rounds-index {
+  padding: 20px 40px 20px 40px;
+}
+
+#rounds-index table {
+  width: 50%;
+  margin: 20px 0 0 0;
+}
+
+#rounds-show {
+  padding: 20px;
+}
+
+#rounds-show table {
+  margin: 20px 0 0 0;
+}

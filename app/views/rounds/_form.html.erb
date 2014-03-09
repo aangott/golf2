@@ -15,7 +15,7 @@
 
     <div class='field'>
         <%= round_form.label :date %><br />
-        <%= round_form.date_select :date %>
+        <%= round_form.date_select :date, order: [:month, :day, :year] %>
     </div>
 
     <div class='field'>

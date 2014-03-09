@@ -18,6 +18,11 @@
       </div>
       <ul class='nav navbar-nav navbar-right'>
         <li class='major-nav'>
+          <%= link_to :controller => 'rounds', :action => 'index' do %>
+            <span id='calendar-glyph'></span>Schedule
+          <% end %>
+        </li>
+        <li class='major-nav'>
           <%= link_to :controller => 'stats', :action => 'rankings' do %>
             <span id='trophy-glyph'></span>Rankings
           <% end %>
@@ -44,8 +49,8 @@
     <% end %>
 
     <%= yield %>
+
   </div>
 </body>
-
 
 </html>

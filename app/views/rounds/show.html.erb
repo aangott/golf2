@@ -1,0 +1,45 @@
+<div id='rounds-show'>
+
+    <h1>
+        Round Details: <%=@round.date.to_formatted_s(:long)%>
+        <small><%=@round.course%></small>
+    </h1>
+
+    <table class='table table-striped'>
+        <tr>
+            <th>Player 1</th>
+            <% if @round.is_in_past? %>
+                <th>Score</th>
+                <th>Adjusted Score</th>
+                <th>Points</th>
+            <% end %>
+            <th>Player 2</th>
+            <% if @round.is_in_past? %>
+                <th>Score</th>
+                <th>Adjusted Score</th>
+                <th>Points</th>
+            <% end %>
+        </tr>
+
+        <% @round.matches.each do |match| %>
+            <tr>
+                <td><%= match.player1.number_and_name %></td>
+                <% if @round.is_in_past? %>
+                    <td><%= match.score1.value %></td>
+                    <td><%= match.score1.adjusted %></td>
+                    <td><%= match.points1.value %></td>
+                <% end %>
+                <td><%= match.player2.number_and_name %></td>
+                <% if @round.is_in_past? %>
+                    <td><%= match.score2.value %></td>
+                    <td><%= match.score2.adjusted %></td>
+                    <td><%= match.points2.value %></td>
+                <% end %>
+            </tr>
+
+
+        <% end %>
+
+
+    </table>
+</div>

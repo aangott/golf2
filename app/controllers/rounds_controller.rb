@@ -1,10 +1,13 @@
 class RoundsController < ApplicationController
-  before_filter :authenticate, :except => [:index]
+  before_filter :authenticate, :except => [:index, :show]
 
   def index
     @rounds = Round.all
   end
 
+  def show
+    @round = Round.find(params[:id])
+  end
 
   def new
     @round = Round.new
