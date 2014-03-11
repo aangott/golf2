@@ -13,10 +13,7 @@ class RoundsController < ApplicationController
     @round = Round.new
     # create the matches that comprise the round
     4.times do
-      @round.matches.build(:score1 => Score.new,
-                           :score2 => Score.new,
-                           :points1 => Point.new,
-                           :points2 => Point.new)
+      @round.matches.build()
     end
   end
 
@@ -25,8 +22,10 @@ class RoundsController < ApplicationController
     @round = Round.new(params[:round])
 
     @round.matches.each do |match|
-      match.score1.player_id = match.player1.id
-      match.score2.player_id = match.player2.id
+      match.score1 = Score.new
+      match.score2 = Score.new
+      match.points1 = Point.new
+      match.points2 = Point.new
     end
 
     if @round.save
@@ -47,10 +46,10 @@ class RoundsController < ApplicationController
     @round = Round.find(params[:id])
 
     @round.matches.each do |match|
-      match.score1.player_id = match.player1.id
-      match.score2.player_id = match.player2.id
-      match.points1.player_id = match.player1.id
-      match.points2.player_id = match.player2.id
+      match.score1.player_id = match.player1 ? match.player1.id : nil
+      match.score2.player_id = match.player2 ? match.player2.id : nil 
+      match.points1.player_id = match.player1 ? match.player1.id : nil
+      match.points2.player_id = match.player2 ? match.player2.id : nil
     end
 
     if @round.update_attributes(params[:round])

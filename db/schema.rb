@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140309015551) do
+ActiveRecord::Schema.define(:version => 20140311001237) do
 
   create_table "matches", :force => true do |t|
     t.integer  "round_id"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(:version => 20140309015551) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "course"
+    t.string   "note"
   end
 
   create_table "scores", :force => true do |t|

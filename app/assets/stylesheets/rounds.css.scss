@@ -18,3 +18,54 @@
 #rounds-show table {
   margin: 20px 0 0 0;
 }
+
+#rounds-show small {
+  margin-left: 10px;
+}
+
+#rounds-edit, #rounds-new {
+  margin: 15px;
+}
+
+#round-form {
+  margin: 15px 0 15px 0;
+  width: 100%;
+  overflow: auto;
+}
+
+#round-form table, #round-form th {
+  text-align: center;
+}
+
+#round-form table {
+  width: auto;
+}
+
+#round-form .form-group select {
+  width: 200px;
+  display: inline;
+}
+
+#round-form .short-nums {
+  width: 70px;
+}
+
+#round-form tr:nth-of-type(odd) {
+  background-color: #f9f9f9;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

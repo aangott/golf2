@@ -1,75 +1,90 @@
-<%= form_for(@round) do |round_form| %>
-    <% if @round.errors.any? %>
-        <div id='errorExplanation'>
-            <h2>
-                <%= pluralize(@round.errors.count, "error") %> 
-                prohibited this round from being saved:
-            </h2>
-            <ul>
-                <% @round.errors.full_messages.each do |msg| %>
-                    <li><%= msg %></li>
+<div id='round-form'>
+    <%= form_for(@round, {:html => {'role' => 'form'}}) do |round_form| %>
+        <% if @round.errors.any? %>
+            <div id='errorExplanation'>
+                <h2>
+                    <%= pluralize(@round.errors.count, "error") %> 
+                    prohibited this round from being saved:
+                </h2>
+                <ul>
+                    <% @round.errors.full_messages.each do |msg| %>
+                        <li><%= msg %></li>
+                    <% end %>
+                </ul>
+            </div>
+        <% end %>
+
+        <div class='form-group'>
+            <%= round_form.label :date %><br />
+            <%= round_form.date_select :date, {:order => [:month, :day, :year]}, {'class' => 'form-control'} %>
+        </div>
+
+        <div class='form-group'>
+            <%= round_form.label :course %><br />
+            <%= round_form.select(:course, [['Front 9', 'Front 9'], ['Back 9', 'Back 9'], ['No Golf', 'No Golf']], {}, {'class' => 'form-control'}) %> 
+        </div>
+
+        <div class='form-group'>
+            <%= round_form.label :note %><br />
+            <%= round_form.text_field(:note, {'class' => 'form-control'}) %>
+        </div>
+
+        <table class='table table-striped'>
+            <tr>
+                <th>Player 1</th>
+                <% if params[:action] != 'new' %>
+                    <th>Score</th>
+                    <th>Adjusted Score</th>
+                    <th>Points</th>
                 <% end %>
-            </ul>
+                <th>Player 2</th>
+                <% if params[:action] != 'new' %>
+                    <th>Score</th>
+                    <th>Adjusted Score</th>
+                    <th>Points</th>
+                <% end %>
+            </tr>
+        <%= round_form.fields_for :matches do |matches_form| %>
+            <tr>
+                <td><%= matches_form.collection_select(:player1_id, 
+                                                       Player.order('number'), 
+                                                       :id, 
+                                                       :number_and_name, 
+                                                       {:include_blank => true},
+                                                       {'class' => 'form-control'}) %></td>
+                
+                <% if params[:action] != 'new' %>
+                    <%= matches_form.fields_for :score1, matches_form.object.score1 do |score1_form| %>
+                        <td class='short-nums'><%= score1_form.text_field :value, {'class' => 'form-control', 'maxlength' => '3'} %></td>
+                        <td class='short-nums'><%= score1_form.text_field :adjusted, {'class' => 'form-control', 'maxlength' => '3'} %></td>
+                    <% end %>
+                    <%= matches_form.fields_for :points1, matches_form.object.points1 do |points1_form| %>
+                        <td class='short-nums'><%= points1_form.text_field :value, {'class' => 'form-control', 'maxlength' => '3'} %></td>
+                    <% end %>
+                <% end %>
+
+                <td><%= matches_form.collection_select(:player2_id, 
+                                                       Player.order('number'), 
+                                                       :id, 
+                                                       :number_and_name, 
+                                                       {:include_blank => true},
+                                                       {'class' => 'form-control'}) %></td>
+                <% if params[:action] != 'new' %>
+                    <%= matches_form.fields_for :score2, matches_form.object.score2 do |score2_form| %>
+                        <td class='short-nums'><%= score2_form.text_field :value, {'class' => 'form-control', 'maxlength' => '3'} %></td>
+                        <td class='short-nums'><%= score2_form.text_field :adjusted, {'class' => 'form-control', 'maxlength' => '3'} %></td>
+                    <% end %>
+                    <%= matches_form.fields_for :points2, matches_form.object.points2 do |points2_form| %>
+                        <td class='short-nums'><%= points2_form.text_field :value, {'class' => 'form-control', 'maxlength' => '3'} %></td>
+                    <% end %>
+                <% end %>
+            </tr>
+        <% end %>
+        </table>
+
+
+        <div class='actions'>
+            <%= round_form.submit(nil, 'class' => 'btn btn-primary')%>
         </div>
     <% end %>
-
-    <div class='field'>
-        <%= round_form.label :date %><br />
-        <%= round_form.date_select :date, order: [:month, :day, :year] %>
-    </div>
-
-    <div class='field'>
-        <%= round_form.label :course %><br />
-        <%= round_form.select(:course, [['Front 9', 'Front 9'], ['Back 9', 'Back 9']]) %> 
-    </div>
-
-    <table>
-        <tr>
-            <th>Player 1</th>
-            <th>Score</th>
-            <th>Adjusted Score</th>
-            <th>Points</th>
-            <th>Player 2</th>
-            <th>Score</th>
-            <th>Adjusted Score</th>
-            <th>Points</th>
-        </tr>
-
-
-    <%= round_form.fields_for :matches do |matches_form| %>
-        <tr>
-            <td><%= matches_form.collection_select(:player1_id, 
-                                                   Player.order('number'), 
-                                                   :id, 
-                                                   :number_and_name, 
-                                                   include_blank: true) %></td>
-            
-            <%= matches_form.fields_for :score1, matches_form.object.score1 do |score1_form| %>
-                <td><%= score1_form.text_field :value %></td>
-                <td><%= score1_form.text_field :adjusted %></td>
-            <% end %>
-            <%= matches_form.fields_for :points1, matches_form.object.points1 do |points1_form| %>
-                <td><%= points1_form.text_field :value %></td>
-            <% end %>
-
-            <td><%= matches_form.collection_select(:player2_id, 
-                                                   Player.order('number'), 
-                                                   :id, 
-                                                   :number_and_name, 
-                                                   include_blank: true) %></td>
-            <%= matches_form.fields_for :score2, matches_form.object.score2 do |score2_form| %>
-                <td><%= score2_form.text_field :value %></td>
-                <td><%= score2_form.text_field :adjusted %></td>
-            <% end %>
-            <%= matches_form.fields_for :points2, matches_form.object.points2 do |points2_form| %>
-                <td><%= points2_form.text_field :value %></td>
-            <% end %>
-        </tr>
-    <% end %>
-    </table>
-
-
-    <div class='actions'>
-        <%= round_form.submit %>
-    </div>
-<% end %>
+</div>

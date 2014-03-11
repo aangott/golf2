@@ -1,5 +1,5 @@
 class Round < ActiveRecord::Base
-  attr_accessible :date, :course, :matches_attributes
+  attr_accessible :date, :course, :matches_attributes, :note
 
   has_many :matches
   accepts_nested_attributes_for :matches

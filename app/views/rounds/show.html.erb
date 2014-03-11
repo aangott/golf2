@@ -23,13 +23,13 @@
 
         <% @round.matches.each do |match| %>
             <tr>
-                <td><%= match.player1.number_and_name %></td>
+                <td><%= match.player1.respond_to?(:number_and_name) ? match.player1.number_and_name : 'Player not yet selected'%></td>
                 <% if @round.is_in_past? %>
                     <td><%= match.score1.value %></td>
                     <td><%= match.score1.adjusted %></td>
                     <td><%= match.points1.value %></td>
                 <% end %>
-                <td><%= match.player2.number_and_name %></td>
+                <td><%= match.player2.respond_to?(:number_and_name) ? match.player2.number_and_name : 'Player not yet selected'%></td>
                 <% if @round.is_in_past? %>
                     <td><%= match.score2.value %></td>
                     <td><%= match.score2.adjusted %></td>
