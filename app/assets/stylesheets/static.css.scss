@@ -1,3 +1,41 @@
 // Place all the styles related to the Static controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#home {
+  text-align: center;
+}
+
+#home #links-container {
+  margin: 80px auto 80px auto;
+  width: auto;
+  display: inline-block;
+}
+
+#home #links-container .link-box {
+  color: #5c5c5c;
+  border: 1px solid #e7e7e7;
+  background-color: #f8f8f8;
+  border-radius: 5px;
+  float: left;
+  font-size: 20px;
+  text-align: center;
+  width: 175px;
+  padding: 10px;
+  margin: 15px;
+}
+
+#home #links-container .link-box:hover {
+  background-color: #ebebeb;
+}
+
+.player-glyph {
+  background-image: image-url("glyphicons_003_user.png");
+}
+
+#home .icon {
+  background-size: 20px;
+  height: 25px;
+  width: 25px;
+  margin: 10px 0 0 0;
+}

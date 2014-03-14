@@ -23,6 +23,16 @@ class Player < ActiveRecord::Base
     "#{first_name} #{last_name} #{suffix}"
   end
 
+  def last_10_scores
+    sorted_matches = self.matches.sort_by { |match| match.round.date }
+    most_recent_dates = 
+
+
+
+
+
+    # find the last 10 matches the player was in
+  end
   
 
 

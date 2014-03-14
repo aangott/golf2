@@ -1,20 +1,38 @@
-<div id='links-container'>
-  <div class='link-box'>
+<div id='home'>
+  <div id='links-container'>
+
+    <%= link_to :controller => 'rounds', :action => 'index' do %>
+      <div class='link-box'>
+        View the 2014<br/>
+        season schedule<br/>
+        <span class='calendar-glyph icon'></span>
+      </div>
+    <% end %>
+
+    <%= link_to :controller => 'stats', :action => 'rankings' do %>
+      <div class='link-box'>
+        View the current<br/>
+        rankings by flight<br/>
+        <span class='trophy-glyph icon'></span>
+      </div>
+    <% end %>
     
+    <%= link_to :controller => 'stats', :action => 'history' do %>
+      <div class='link-box'>
+        View past scores<br/>
+        by player<br/>
+        <span class='golf-glyph icon'></span>
+      </div>
+    <% end %>
+
+    <% if logged_in? %>
+      <%= link_to players_path do %>
+        <div class='link-box'>
+          Manage players and roster<br/>
+          <span class='player-glyph icon'></span>
+        </div>
+      <% end %>
+    <% end %>
+
   </div>
-
-  <div class='link-box'>
-
-  </div>
-
-  <div class='link-box'>
-
-  </div>
-
 </div>
-
-
-
-
-
-<p>Find me in app/views/static/home.html.erb</p>

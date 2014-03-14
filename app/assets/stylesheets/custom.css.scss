@@ -48,7 +48,7 @@ li.major-nav a {
   background-color: #b8b8b8;
 }
 
-#trophy-glyph, #golf-glyph, #calendar-glyph {
+.icon {
   display: inline-block;
   width: 15px;
   height: 15px;
@@ -58,15 +58,15 @@ li.major-nav a {
   margin-right: 5px;
 }
 
-#trophy-glyph {
+.trophy-glyph {
   background-image: image-url("glyphicons_074_cup.png");
 }
 
-#golf-glyph {
+.golf-glyph {
   background-image: image-url("glyphicons_402_golf_course.png");
 }
 
-#calendar-glyph {
+.calendar-glyph {
   background-image: image-url("glyphicons_045_calendar.png");
 }
 

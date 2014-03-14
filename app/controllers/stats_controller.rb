@@ -21,8 +21,11 @@ class StatsController < ApplicationController
 
 
 
-  def history 
-
+  def history
+    @players_by_flight = {}
+    @players_by_flight['First Flight'] = Player.where(:flight => '1')
+    @players_by_flight['Second Flight'] = Player.where(:flight => '2')  
+    @players_by_flight['Substitutes'] = Player.where(:flight => 'Sub')
   end
   
 

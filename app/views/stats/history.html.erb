@@ -1,1 +1,48 @@
-hello!
+<div id='stats-history'>
+  <h1>Score History</h1>
+
+  <% @players_by_flight.each do |flight, players| %>
+
+
+    <h2><%= flight %></h2>
+    <table class='table table-striped'>
+      <tr>
+        <th>Player</th>
+        <th>#</th>
+        <th>Avg</th>
+        <% (1..9).each do |n| %>
+          <th><%= n %></th>
+        <% end %>
+        <th>To drop</th>
+        <th>Dropped</th>
+      </tr>
+    <% players.each do |player| %>
+      <tr>
+        <td><%= player.full_name %></td>
+        <td><%= player.number %></td>
+
+      </tr>
+
+
+    <% end %>
+
+
+
+
+
+
+
+
+    </table>
+
+  <% end %>
+
+
+
+
+
+
+
+
+
+</div>

@@ -7,6 +7,7 @@ class Match < ActiveRecord::Base
   belongs_to :score2, :class_name => 'Score'
   belongs_to :points1, :class_name => 'Point'
   belongs_to :points2, :class_name => 'Point'
+  belongs_to :round
 
 
   accepts_nested_attributes_for :score1, :score2, :points1, :points2
