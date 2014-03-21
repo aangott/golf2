@@ -2,7 +2,7 @@ class RoundsController < ApplicationController
   before_filter :authenticate, :except => [:index, :show]
 
   def index
-    @rounds = Round.all
+    @rounds = Round.order('date')
   end
 
   def show

@@ -13,3 +13,5 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+to_do.txt

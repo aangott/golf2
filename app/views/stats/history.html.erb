@@ -20,18 +20,12 @@
       <tr>
         <td><%= player.full_name %></td>
         <td><%= player.number %></td>
-
+        <td><%= player.avg_score %></td>
+        <% player.last_scores.each do |score| %>
+          <td><%= score %></td>
+        <% end %>
       </tr>
-
-
     <% end %>
-
-
-
-
-
-
-
 
     </table>
 
