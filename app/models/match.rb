@@ -12,4 +12,25 @@ class Match < ActiveRecord::Base
 
   accepts_nested_attributes_for :score1, :score2, :points1, :points2
 
+  def self.last_scored_match
+    # should this be the last match with *any* score, or the last match with
+    # *all* scores reported?
+  end
+
+  def player_score(player)
+    if self.player1_id == player.id
+      return self.score1
+    elsif self.player2_id == player.id
+      return self.score2
+    end
+  end
+
+  def player_points(player)
+    if self.player1_id == player.id
+      return self.points1
+    elsif self.player2_id == player.id
+      return self.points2
+    end
+  end
+
 end

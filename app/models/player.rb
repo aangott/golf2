@@ -4,14 +4,22 @@ class Player < ActiveRecord::Base
   validates :last_name, :presence => true
   validates :number, :presence => true
   validates :flight, :presence => true
-
   has_many :scores
   has_many :points
-
   has_many :matches1, :class_name => "Match", :foreign_key => :player1_id
   has_many :matches2, :class_name => "Match", :foreign_key => :player2_id
 
-  @@score_history = 11
+  FLIGHT_CHOICES = ['1', '2', 'Sub']
+  NUM_SCORES_FOR_AVG = 10
+  SCORE_HISTORY = NUM_SCORES_FOR_AVG + 1
+
+  def self.players_by_flight
+    pbf = {}
+    pbf['First Flight'] = Player.where(:flight => '1')
+    pbf['Second Flight'] = Player.where(:flight => '2')  
+    pbf['Substitutes'] = Player.where(:flight => 'Sub')
+    return pbf
+  end
 
   def matches
     matches1 + matches2
@@ -25,20 +33,20 @@ class Player < ActiveRecord::Base
     "#{first_name} #{last_name} #{suffix}"
   end
 
+  def matches_by_date
+    # most recent match first
+    self.matches.sort_by { |match| match.round.date }.reverse
+  end
+
   def last_scores
     last_scores = []
-    last_matches = self.matches.sort_by { |match| match.round.date }.reverse
+    last_matches = self.matches_by_date
     
     # add in any scores from this season's matches starting from most recent
     idx = 0
-    while last_scores.length < @@score_history and idx < last_matches.length do
+    while last_scores.length < SCORE_HISTORY and idx < last_matches.length do
       last_match = last_matches[idx]
-      if last_match.player1_id == self.id
-        score = last_match.score1
-      elsif last_match.player2_id == self.id
-        score = last_match.score2
-      end
-
+      score = last_match.player_score(self)
       if score.ultimate_value
         last_scores << score.ultimate_value
       end
@@ -46,7 +54,7 @@ class Player < ActiveRecord::Base
       idx += 1
     end
 
-    if last_scores.length == @@score_history
+    if last_scores.length == SCORE_HISTORY
       return last_scores
     end
 
@@ -59,7 +67,7 @@ class Player < ActiveRecord::Base
     other_scores.sort_by! { |score| score.rowid }.reverse!
     
     idx = 0
-    while last_scores.length < @@score_history and idx < other_scores.length do
+    while last_scores.length < SCORE_HISTORY and idx < other_scores.length do
       score = other_scores[idx]
       if score.ultimate_value
         last_scores << score.ultimate_value
@@ -67,7 +75,7 @@ class Player < ActiveRecord::Base
       idx += 1
     end
 
-    while last_scores.length < @@score_history
+    while last_scores.length < SCORE_HISTORY
       last_scores << nil
     end
 
@@ -77,8 +85,8 @@ class Player < ActiveRecord::Base
   
   def avg_score
     last_scores = self.last_scores.compact
+    last_scores = last_scores.slice(0, NUM_SCORES_FOR_AVG)
     last_scores.inject { |sum, el| sum + el }.to_f / last_scores.length
   end
-
   
 end

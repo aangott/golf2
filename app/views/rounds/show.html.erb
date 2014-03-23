@@ -5,6 +5,10 @@
         <small><%=@round.course%></small>
     </h1>
 
+    <% if not @round.note.blank? %>
+        <h4>Note: <%=@round.note%></h4>
+    <% end %>
+
     <table class='table table-striped'>
         <tr>
             <th>Player 1</th>

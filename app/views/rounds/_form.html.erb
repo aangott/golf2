@@ -21,7 +21,7 @@
 
         <div class='form-group'>
             <%= round_form.label :course %><br />
-            <%= round_form.select(:course, [['Front 9', 'Front 9'], ['Back 9', 'Back 9'], ['No Golf', 'No Golf']], {}, {'class' => 'form-control'}) %> 
+            <%= round_form.select :course, options_for_select(Round::COURSE_CHOICES), {}, {'class' => 'form-control'} %>
         </div>
 
         <div class='form-group'>

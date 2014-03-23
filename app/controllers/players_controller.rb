@@ -2,7 +2,7 @@ class PlayersController < ApplicationController
   before_filter :authenticate
 
   def index
-    @players = Player.all
+    @players = Player.order('last_name')
   end
 
 

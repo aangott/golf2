@@ -3,14 +3,13 @@
 
   <% @players_by_flight.each do |flight, players| %>
 
-
-    <h2><%= flight %></h2>
+    <h3><%= flight %></h3>
     <table class='table table-striped'>
       <tr>
         <th>Player</th>
         <th>#</th>
         <th>Avg</th>
-        <% (1..9).each do |n| %>
+        <% (1..(Player::SCORE_HISTORY - 2)).each do |n| %>
           <th><%= n %></th>
         <% end %>
         <th>To drop</th>
@@ -26,17 +25,8 @@
         <% end %>
       </tr>
     <% end %>
-
     </table>
 
   <% end %>
-
-
-
-
-
-
-
-
 
 </div>

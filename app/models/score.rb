@@ -13,12 +13,11 @@ class Score < ActiveRecord::Base
     end
   end
 
-
-
-
-
-
-
-
+  def orig_and_adjusted
+    if self.adjusted
+      return "Orig: #{value}, Adj: #{adjusted}"
+    end
+    self.value
+  end
 
 end
