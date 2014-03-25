@@ -13,8 +13,12 @@ class Match < ActiveRecord::Base
   accepts_nested_attributes_for :score1, :score2, :points1, :points2
 
   def self.last_scored_match
-    # should this be the last match with *any* score, or the last match with
-    # *all* scores reported?
+    sorted_matches = Match.all.sort_by { |match| match.round.date }.reverse
+    sorted_matches.each do |match|
+      if match.score1.ultimate_value or match.score2.ultimate_value
+        return match
+      end
+    end
   end
 
   def player_score(player)

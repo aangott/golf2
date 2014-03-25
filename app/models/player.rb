@@ -26,16 +26,34 @@ class Player < ActiveRecord::Base
   end
 
   def number_and_name
-    "#{number} - #{first_name} #{last_name} #{suffix}"
+    "#{number} - #{first_name} #{last_name[0]}. #{suffix}"
   end
 
   def full_name
-    "#{first_name} #{last_name} #{suffix}"
+    "#{first_name} #{last_name[0]}. #{suffix}"
   end
 
   def matches_by_date
     # most recent match first
     self.matches.sort_by { |match| match.round.date }.reverse
+  end
+
+  def score_info(match)
+    score = match.player_score(self)
+    if score
+      return score.orig_and_adjusted
+    end
+  end
+
+  def points_info(match)
+    points = match.player_points(self)
+    if points
+      return points.value
+    end
+  end
+
+  def total_points
+    
   end
 
   def last_scores

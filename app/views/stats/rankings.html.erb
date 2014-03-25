@@ -20,8 +20,8 @@
           <td><%= player.full_name %></td>
           <td><%= player.number %></td>
           <td><%= player.avg_score %></td>
-          <td><%= player.last_scored_match.player_score(player).orig_and_adjusted%></td>
-          <td><%= player.last_scored_match.player_points(player).value%></td>
+          <td><%= player.score_info(@last_match) %></td>
+          <td><%= player.points_info(@last_match) %></td>
           <td>total points</td>
         </tr>
 
