@@ -2,7 +2,13 @@ class PlayersController < ApplicationController
   before_filter :authenticate
 
   def index
-    @players = Player.order('last_name')
+    @players = []
+    pbf = Player.players_by_flight
+    pbf.each do |flight, flight_players|
+      @players += flight_players.sort_by do |player| 
+        player.number =~ /[[:digit:]]/ ? player.number.to_i : player.number
+      end
+    end
   end
 
 

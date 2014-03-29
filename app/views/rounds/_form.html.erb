@@ -1,11 +1,11 @@
 <div id='round-form'>
     <%= form_for(@round, {:html => {'role' => 'form'}}) do |round_form| %>
         <% if @round.errors.any? %>
-            <div id='errorExplanation'>
-                <h2>
+            <div id='errorExplanation' class='alert alert-danger'>
+                <p>
                     <%= pluralize(@round.errors.count, "error") %> 
                     prohibited this round from being saved:
-                </h2>
+                </p>
                 <ul>
                     <% @round.errors.full_messages.each do |msg| %>
                         <li><%= msg %></li>

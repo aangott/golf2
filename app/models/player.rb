@@ -1,9 +1,11 @@
 class Player < ActiveRecord::Base
-  attr_accessible :first_name, :last_name, :suffix, :number, :flight
+  attr_accessible :first_name, :last_name, :suffix, :number, :flight, :starting_avg
   validates :first_name, :presence => true
   validates :last_name, :presence => true
   validates :number, :presence => true
   validates :flight, :presence => true
+  validates :starting_avg, numericality: true, :allow_blank => true
+
   has_many :scores
   has_many :points
   has_many :matches1, :class_name => "Match", :foreign_key => :player1_id
@@ -11,10 +13,13 @@ class Player < ActiveRecord::Base
 
   FLIGHT_CHOICES = ['1', '2', 'Sub']
   NUM_SCORES_FOR_AVG = 10
+  # if a player has less than 3 scores in the league, calculate their average by
+  # filling in fake scores corresponding to the player's starting avg.
+  MIN_SCORES_FOR_AVG = 3
   SCORE_HISTORY = NUM_SCORES_FOR_AVG + 1
 
   def self.players_by_flight
-    pbf = {}
+    pbf = ActiveSupport::OrderedHash.new
     pbf['First Flight'] = Player.where(:flight => '1')
     pbf['Second Flight'] = Player.where(:flight => '2')  
     pbf['Substitutes'] = Player.where(:flight => 'Sub')
@@ -39,6 +44,10 @@ class Player < ActiveRecord::Base
   end
 
   def score_info(match)
+    if not match
+      return 'n/a'
+    end
+
     score = match.player_score(self)
     if score
       return score.orig_and_adjusted
@@ -46,14 +55,26 @@ class Player < ActiveRecord::Base
   end
 
   def points_info(match)
+    if not match
+      return 'n/a'
+    end
+
     points = match.player_points(self)
-    if points
+    if points and points.value
       return points.value
     end
+    return 0
   end
 
   def total_points
-    
+    points = 0
+
+    matches = self.matches_by_date
+    curr_matches = matches.map { |match| match if match.round.in_current_season? }.compact
+    curr_matches.each do |match|
+      points += self.points_info(match)
+    end
+    return points
   end
 
   def last_scores
@@ -104,7 +125,33 @@ class Player < ActiveRecord::Base
   def avg_score
     last_scores = self.last_scores.compact
     last_scores = last_scores.slice(0, NUM_SCORES_FOR_AVG)
+
+    if self.starting_avg
+      while last_scores.length < MIN_SCORES_FOR_AVG
+        last_scores << self.starting_avg
+      end
+    end
+
+    if last_scores.empty?
+      return 0
+    end
+
     last_scores.inject { |sum, el| sum + el }.to_f / last_scores.length
   end
   
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

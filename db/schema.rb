@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140311001237) do
+ActiveRecord::Schema.define(:version => 20140329202453) do
 
   create_table "matches", :force => true do |t|
     t.integer  "round_id"
@@ -36,8 +36,9 @@ ActiveRecord::Schema.define(:version => 20140311001237) do
     t.string   "suffix"
     t.string   "number"
     t.string   "flight"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.float    "starting_avg"
   end
 
   create_table "points", :force => true do |t|
