@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140329202453) do
+ActiveRecord::Schema.define(:version => 20140330211409) do
 
   create_table "matches", :force => true do |t|
     t.integer  "round_id"
@@ -25,10 +25,21 @@ ActiveRecord::Schema.define(:version => 20140329202453) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "matches", ["player1_id"], :name => "idx_matches_player1_id"
+  add_index "matches", ["player2_id"], :name => "idx_matches_player2_id"
+  add_index "matches", ["points1_id"], :name => "idx_matches_points1_id"
+  add_index "matches", ["points2_id"], :name => "idx_matches_points2_id"
+  add_index "matches", ["round_id"], :name => "idx_matches_round_id"
+  add_index "matches", ["score1_id"], :name => "idx_matches_score1_id"
+  add_index "matches", ["score2_id"], :name => "idx_matches_score2_id"
+
   create_table "matches_players", :id => false, :force => true do |t|
     t.integer "match_id"
     t.integer "player_id"
   end
+
+  add_index "matches_players", ["match_id"], :name => "idx_matches_players_match_id"
+  add_index "matches_players", ["player_id"], :name => "idx_matches_players_player_id"
 
   create_table "players", :force => true do |t|
     t.string   "first_name"
@@ -48,6 +59,8 @@ ActiveRecord::Schema.define(:version => 20140329202453) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "points", ["player_id"], :name => "idx_points_player_id"
+
   create_table "rounds", :force => true do |t|
     t.date     "date"
     t.datetime "created_at", :null => false
@@ -63,6 +76,8 @@ ActiveRecord::Schema.define(:version => 20140329202453) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "scores", ["player_id"], :name => "idx_scores_player_id"
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false

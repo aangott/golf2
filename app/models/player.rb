@@ -10,7 +10,6 @@ class Player < ActiveRecord::Base
   has_many :points
   has_many :matches1, :class_name => "Match", :foreign_key => :player1_id
   has_many :matches2, :class_name => "Match", :foreign_key => :player2_id
-
   FLIGHT_CHOICES = ['1', '2', 'Sub']
   NUM_SCORES_FOR_AVG = 10
   # if a player has less than 3 scores in the league, calculate their average by
@@ -24,6 +23,17 @@ class Player < ActiveRecord::Base
     pbf['Second Flight'] = Player.where(:flight => '2')  
     pbf['Substitutes'] = Player.where(:flight => 'Sub')
     return pbf
+  end
+
+  def self.ordered_by_number
+    players = []
+    pbf = Player.players_by_flight
+    pbf.each do |flight, flight_players|
+      players += flight_players.sort_by do |player| 
+        player.number =~ /[[:digit:]]/ ? player.number.to_i : player.number
+      end
+    end
+    return players
   end
 
   def matches
@@ -43,36 +53,32 @@ class Player < ActiveRecord::Base
     self.matches.sort_by { |match| match.round.date }.reverse
   end
 
-  def score_info(match)
-    if not match
-      return 'n/a'
+  def score_info(round)
+    round.matches.each do |match|
+      score = match.player_score(self)
+      if score
+        return score.orig_and_adjusted
+      end
     end
-
-    score = match.player_score(self)
-    if score
-      return score.orig_and_adjusted
-    end
+    return 'n/a'
   end
 
-  def points_info(match)
-    if not match
-      return 'n/a'
-    end
-
-    points = match.player_points(self)
-    if points and points.value
-      return points.value
+  def points_info(round)
+    round.matches.each do |match|
+      points = match.player_points(self)
+      if points and points.value
+        return points.value
+      end
     end
     return 0
   end
 
   def total_points
     points = 0
-
-    matches = self.matches_by_date
-    curr_matches = matches.map { |match| match if match.round.in_current_season? }.compact
-    curr_matches.each do |match|
-      points += self.points_info(match)
+    rounds_by_date = Round.all.sort_by { |round| round.date }.reverse
+    curr_rounds = rounds_by_date.map { |round| round if round.in_current_season? }.compact
+    curr_rounds.each do |round|
+      points += self.points_info(round)
     end
     return points
   end
@@ -103,7 +109,7 @@ class Player < ActiveRecord::Base
     match_scores = Match.all.map { |match| match.score1_id } + 
                    Match.all.map { |match| match.score2_id }
     other_scores = Score.all.map { |score| score if not match_scores.include?(score.id) and score.player == self}.compact
-    other_scores.sort_by! { |score| score.rowid }.reverse!
+    other_scores.sort_by! { |score| score.id }.reverse!
     
     idx = 0
     while last_scores.length < SCORE_HISTORY and idx < other_scores.length do
@@ -136,7 +142,8 @@ class Player < ActiveRecord::Base
       return 0
     end
 
-    last_scores.inject { |sum, el| sum + el }.to_f / last_scores.length
+    avg = last_scores.inject { |sum, el| sum + el }.to_f / last_scores.length
+    avg.round(0)
   end
   
 end

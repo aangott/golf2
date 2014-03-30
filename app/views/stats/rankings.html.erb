@@ -2,7 +2,7 @@
 
   <h1>Rankings</h1>
 
-  <% @players_by_flight.each do |flight, players| %>
+  <% @players_by_flight_points.each do |flight, players| %>
     <h3><%= flight %></h3>
     <table class='table table-striped'>
       <tr>
@@ -20,8 +20,8 @@
           <td><%= player.full_name %></td>
           <td><%= player.number %></td>
           <td><%= player.avg_score %></td>
-          <td><%= player.score_info(@last_match) %></td>
-          <td><%= player.points_info(@last_match) %></td>
+          <td><%= player.score_info(@last_round) %></td>
+          <td><%= player.points_info(@last_round) %></td>
           <td><%= player.total_points %></td>
         </tr>
 

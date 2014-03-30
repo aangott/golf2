@@ -4,7 +4,21 @@ class Round < ActiveRecord::Base
   accepts_nested_attributes_for :matches
 
   COURSE_CHOICES = ['Front 9', 'Back 9', 'No Golf']
-  SEASON_START_MONTH = 1
+  SEASON_START_MONTH = 4
+  MATCHES_PER_ROUND = 11
+
+  def self.last_scored_round
+    rounds = Round.all.map { |round| round if round.in_current_season? }.compact
+    sorted_rounds = rounds.sort_by { |round| round.date }.reverse
+    sorted_rounds.each do |round|
+      round.matches.each do |match|
+        if match.score1.ultimate_value or match.score2.ultimate_value
+          return round
+        end
+      end
+    end
+    return nil
+  end
 
   def is_in_past?
     Time.now > self.date

@@ -47,7 +47,7 @@
         <%= round_form.fields_for :matches do |matches_form| %>
             <tr>
                 <td><%= matches_form.collection_select(:player1_id, 
-                                                       Player.order('number'), 
+                                                       Player.ordered_by_number, 
                                                        :id, 
                                                        :number_and_name, 
                                                        {:include_blank => true},
@@ -64,7 +64,7 @@
                 <% end %>
 
                 <td><%= matches_form.collection_select(:player2_id, 
-                                                       Player.order('number'), 
+                                                       Player.ordered_by_number, 
                                                        :id, 
                                                        :number_and_name, 
                                                        {:include_blank => true},

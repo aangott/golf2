@@ -9,21 +9,7 @@ class Match < ActiveRecord::Base
   belongs_to :points2, :class_name => 'Point'
   belongs_to :round
 
-  validates :player1_id, :presence => true
-  validates :player2_id, :presence => true
-
   accepts_nested_attributes_for :score1, :score2, :points1, :points2
-
-  def self.last_scored_match
-    matches = Match.all.map { |match| match if match.round.in_current_season? }.compact
-    sorted_matches = matches.sort_by { |match| match.round.date }.reverse
-    sorted_matches.each do |match|
-      if match.score1.ultimate_value or match.score2.ultimate_value
-        return match
-      end
-    end
-    return nil
-  end
 
   def player_score(player)
     if self.player1_id == player.id
