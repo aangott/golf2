@@ -54,20 +54,24 @@ class Player < ActiveRecord::Base
   end
 
   def score_info(round)
-    round.matches.each do |match|
-      score = match.player_score(self)
-      if score
-        return score.orig_and_adjusted
+    if round
+      round.matches.each do |match|
+        score = match.player_score(self)
+        if score
+          return score.orig_and_adjusted
+        end
       end
     end
     return 'n/a'
   end
 
   def points_info(round)
-    round.matches.each do |match|
-      points = match.player_points(self)
-      if points and points.value
-        return points.value
+    if round
+      round.matches.each do |match|
+        points = match.player_points(self)
+        if points and points.value
+          return points.value
+        end
       end
     end
     return 0
