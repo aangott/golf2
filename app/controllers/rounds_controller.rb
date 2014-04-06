@@ -12,7 +12,7 @@ class RoundsController < ApplicationController
   def new
     @round = Round.new
     # create the matches that comprise the round
-    4.times do
+    Round::MATCHES_PER_ROUND.times do
       @round.matches.build()
     end
   end
