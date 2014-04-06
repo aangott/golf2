@@ -11,6 +11,15 @@ class Match < ActiveRecord::Base
 
   accepts_nested_attributes_for :score1, :score2, :points1, :points2
 
+  before_destroy :delete_scores_and_points
+
+  def delete_scores_and_points
+    self.score1.destroy
+    self.score2.destroy
+    self.points1.destroy
+    self.points2.destroy
+  end
+
   def player_score(player)
     if self.player1_id == player.id
       return self.score1

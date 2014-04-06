@@ -1,6 +1,6 @@
 class Round < ActiveRecord::Base
   attr_accessible :date, :course, :matches_attributes, :note
-  has_many :matches
+  has_many :matches, :dependent => :destroy
   accepts_nested_attributes_for :matches
 
   COURSE_CHOICES = ['Front 9', 'Back 9', 'No Golf']
