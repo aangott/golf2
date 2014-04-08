@@ -20,7 +20,7 @@ class Round < ActiveRecord::Base
   end
 
   def self.matches_per_round 
-    (Player.all.count/2.0).round
+    (Player.where('flight IN (1, 2)').count/2.0).round
   end
 
   def is_in_past?

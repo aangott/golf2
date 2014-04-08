@@ -45,11 +45,13 @@ class RoundsController < ApplicationController
   def update
     @round = Round.find(params[:id])
 
-    @round.matches.each do |match|
-      match.score1.player_id = match.player1 ? match.player1.id : nil
-      match.score2.player_id = match.player2 ? match.player2.id : nil 
-      match.points1.player_id = match.player1 ? match.player1.id : nil
-      match.points2.player_id = match.player2 ? match.player2.id : nil
+    if @round.is_in_past?
+      @round.matches.each do |match|
+        match.score1.player_id = match.player1 ? match.player1.id : nil
+        match.score2.player_id = match.player2 ? match.player2.id : nil 
+        match.points1.player_id = match.player1 ? match.player1.id : nil
+        match.points2.player_id = match.player2 ? match.player2.id : nil
+      end
     end
 
     if @round.update_attributes(params[:round])
