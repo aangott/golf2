@@ -5,7 +5,6 @@ class Round < ActiveRecord::Base
 
   COURSE_CHOICES = ['Front 9', 'Back 9', 'No Golf']
   SEASON_START_MONTH = 4
-  MATCHES_PER_ROUND = 11
 
   def self.last_scored_round
     rounds = Round.all.map { |round| round if round.in_current_season? }.compact
@@ -18,6 +17,10 @@ class Round < ActiveRecord::Base
       end
     end
     return nil
+  end
+
+  def self.matches_per_round 
+    (Player.all.count/2.0).round
   end
 
   def is_in_past?
