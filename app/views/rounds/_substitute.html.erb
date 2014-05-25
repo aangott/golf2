@@ -1,0 +1,24 @@
+<tr>
+  <td>
+    <%= select_tag('sub[:player1_id]', 
+                   options_from_collection_for_select(Player.players_by_flight['Substitutes'],
+                                                      :id,
+                                                      :number_and_name),
+                   {:include_blank => true,
+                    'class' => 'form-control'}
+    ) %>
+  </td>
+  <td>
+    <%= text_field_tag('sub[:player1_score]', nil,
+                       {'class' => 'form-control', 'maxlength' => '3'}) %>
+  </td>
+  <td>
+    <%= text_field_tag('sub[:player1_adj_score]', nil, 
+                       {'class' => 'form-control', 'maxlength' => '3'}) %>
+  </td>
+  <td>
+    <%= text_field_tag('sub[:player1_points]', nil,
+                       {'class' => 'form-control', 'maxlength' => '3'}) %>
+  </td>
+  <td colspan='4'></td>
+</tr>

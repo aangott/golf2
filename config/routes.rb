@@ -66,7 +66,6 @@ Golf2::Application.routes.draw do
   get "stats/rankings"
   get "stats/history"
 
-
   root :to => 'static#home'
 
 end

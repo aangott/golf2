@@ -80,11 +80,26 @@
                 <% end %>
             </tr>
         <% end %>
-        </table>
+        <% if params[:action] == 'edit' and @round.is_in_past? %>
+        
 
+        <% end %>
+        <tr id='add-sub-scores'>
+            <td colspan='8'>
+                <span class='glyphicon glyphicon-plus'></span>
+                Add substitute scores
+            </td>
+        </tr>
+        </table>
 
         <div class='actions'>
             <%= round_form.submit(nil, 'class' => 'btn btn-primary')%>
         </div>
     <% end %>
 </div>
+
+<script>
+    $('#add-sub-scores').click(function() {
+        $("<%= escape_javascript render(:partial => 'substitute') %>").insertBefore('#add-sub-scores');
+    });
+</script>

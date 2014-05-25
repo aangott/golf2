@@ -62,7 +62,6 @@ class RoundsController < ApplicationController
     end
   end
 
-
   def destroy
     @round = Round.find(params[:id])
     @round.destroy
